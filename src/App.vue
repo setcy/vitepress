@@ -7,18 +7,14 @@ import ControlPanel from './components/ControlPanel.vue'
   <header>
     <ControlPanel />
   </header>
-  <RouterView />
+  <div class="controlPanelPadding">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 10vh;
-}
-
-.logo {
-  display: block;
-  width: 20px;
-  margin: 0 auto 2rem;
 }
 </style>
