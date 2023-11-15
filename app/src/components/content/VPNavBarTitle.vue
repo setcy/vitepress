@@ -13,6 +13,11 @@
 </template>
 
 <style scoped>
+.VPNavBarTitle {
+  position: absolute;
+  z-index: var(--vp-z-index-nav-title);
+}
+
 .title {
   display: flex;
   align-items: center;

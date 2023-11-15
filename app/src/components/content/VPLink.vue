@@ -5,7 +5,7 @@ import {RouterLink} from "vue-router";
 
 const props = defineProps<{
   tag?: string
-  href?: string
+  href: string
   noIcon?: boolean
   target?: string
   rel?: string

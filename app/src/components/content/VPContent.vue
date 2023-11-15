@@ -8,7 +8,9 @@ import VPDoc from './VPDoc.vue';
   <div
       class="VPContent"
       id="VPContent"
-      :class="{}"
+      :class="{
+         'has-sidebar': true,
+      }"
   >
 
     <VPDoc>
@@ -30,11 +32,12 @@ import VPDoc from './VPDoc.vue';
 </template>
 
 <style scoped>
+
 .VPContent {
   flex-grow: 1;
   flex-shrink: 0;
+  margin: auto 0;
   width: 100%;
-  padding-left: 360px;
 }
 
 .VPContent.is-home {
@@ -46,10 +49,21 @@ import VPDoc from './VPDoc.vue';
   margin: 0;
 }
 
-@media (min-width: 960px){
+@media (min-width: 960px) {
   .VPContent {
+    padding-top: var(--vp-nav-height);
+  }
+
+  .VPContent.has-sidebar {
+    margin: 0;
     padding-left: var(--vp-sidebar-width);
   }
 }
 
+@media (min-width: 1440px) {
+  .VPContent.has-sidebar {
+    padding-right: calc((100vw - var(--vp-layout-max-width)) / 2);
+    padding-left: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width));
+  }
+}
 </style>

@@ -1,12 +1,10 @@
 <script setup lang="ts">
+
 import { RouterLink, RouterView } from 'vue-router'
-import ControlPanel from './components/ControlPanel.vue'
+
 </script>
 
 <template>
-  <header>
-    <ControlPanel />
-  </header>
   <div class="controlPanelPadding">
     <RouterView />
   </div>
