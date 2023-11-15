@@ -76,16 +76,15 @@ watch(
 <style scoped>
 .VPSidebar {
   position: fixed;
-  top: var(--vp-layout-top-height, 0px);
+  top: 0;
   bottom: 0;
   left: 0;
   z-index: var(--vp-z-index-sidebar);
   padding: 32px 32px 96px;
-  width: calc(100vw - 64px);
+  width: var(--vp-sidebar-width);
   max-width: 320px;
   background-color: var(--vp-sidebar-bg-color);
   opacity: 0;
-  box-shadow: var(--vp-c-shadow-3);
   overflow-x: hidden;
   overflow-y: auto;
   transform: translateX(-100%);

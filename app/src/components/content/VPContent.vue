@@ -46,4 +46,10 @@ import VPDoc from './VPDoc.vue';
   margin: 0;
 }
 
+@media (min-width: 960px){
+  .VPContent {
+    padding-left: var(--vp-sidebar-width);
+  }
+}
+
 </style>
