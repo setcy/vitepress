@@ -1,4 +1,31 @@
-# Logs
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.aar
+*.jar
+*.syso
+.DS_Store
+.eslintcache
+app/node_modules
+app/stage/build
+app/build
+app/kernel*
+ios
+pprof
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+electron/dist
+
+# IDE
+.idea/
+
+# Log
 logs
 *.log
 npm-debug.log*
@@ -7,24 +34,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-.DS_Store
-dist
-dist-ssr
-coverage
-*.local
-
-/cypress/videos/
-/cypress/screenshots/
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-.vscode
+# NPM Package
+package-lock.json
+yarn.lock
