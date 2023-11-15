@@ -33,8 +33,8 @@ import VPDoc from './VPDoc.vue';
 .VPContent {
   flex-grow: 1;
   flex-shrink: 0;
-  margin: var(--vp-layout-top-height, 0px) auto 0;
   width: 100%;
+  padding-left: 360px;
 }
 
 .VPContent.is-home {

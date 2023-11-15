@@ -69,6 +69,18 @@ function onCaretClick() {
     >
       <div class="indicator" />
 
+      <VPLink
+          v-if="item.link"
+          :tag="linkTag"
+          class="link"
+          :href="item.link"
+          :rel="item.rel"
+          :target="item.target"
+      >
+        <component :is="textTag" class="text" v-html="item.text" />
+      </VPLink>
+      <component v-else :is="textTag" class="text" v-html="item.text" />
+
     </div>
 
     <div v-if="item.items && item.items.length" class="items">

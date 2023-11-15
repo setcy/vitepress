@@ -2,8 +2,6 @@
 
 import { Content } from '@/stores/content';
 
-let dynamicHtml = 'Your HTML string here...'
-
 </script>
 
 <template>
@@ -17,7 +15,7 @@ let dynamicHtml = 'Your HTML string here...'
         <div class="content-container">
           <slot name="doc-before" />
           <main class="main">
-            <Content class="vp-doc" :htmlContent="dynamicHtml" />
+            <Content class="vp-doc" :htmlContent="$route.path" />
           </main>
           <slot name="doc-after" />
         </div>
@@ -93,20 +91,6 @@ let dynamicHtml = 'Your HTML string here...'
   position: relative;
   margin: 0 auto;
   width: 100%;
-}
-
-@media (min-width: 960px) {
-  .content {
-    padding: 0 32px 128px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .content {
-    order: 1;
-    margin: 0;
-    min-width: 640px;
-  }
 }
 
 .content-container {

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { EXTERNAL_URL_RE } from '../../support/shared'
+import {RouterLink} from "vue-router";
 
 const props = defineProps<{
   tag?: string
@@ -15,18 +16,19 @@ const isExternal = computed(() => props.href && EXTERNAL_URL_RE.test(props.href)
 </script>
 
 <template>
-  <component
-    :is="tag"
-    class="VPLink"
-    :class="{
-      link: href,
-      'vp-external-link-icon': isExternal,
-      'no-icon': noIcon
-    }"
-    :href="undefined"
-    :target="target ?? (isExternal ? '_blank' : undefined)"
-    :rel="rel ?? (isExternal ? 'noreferrer' : undefined)"
-  >
-    <slot />
-  </component>
+  <RouterLink :to="href">
+    <component
+      :is="tag"
+      class="VPLink"
+      :class="{
+        link: href,
+        'vp-external-link-icon': isExternal,
+        'no-icon': noIcon
+      }"
+      :target="target ?? (isExternal ? '_blank' : undefined)"
+      :rel="rel ?? (isExternal ? 'noreferrer' : undefined)"
+    >
+        <slot />
+    </component>
+  </RouterLink>
 </template>

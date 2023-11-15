@@ -6,7 +6,7 @@ import VPSidebar from "@/components/content/VPSidebar.vue";
 </script>
 <template>
   <VPSidebar open has-sidebar></VPSidebar>
-  <VPContent></VPContent>
+  <RouterView />
 </template>
 
 <style>

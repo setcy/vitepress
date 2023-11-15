@@ -6,7 +6,6 @@ import {RouterLink} from "vue-router";
 <template>
   <nav>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="20" height="20" />
-    control panel
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/22">Content</RouterLink>
     <RouterLink to="/a/22">Admin</RouterLink>
