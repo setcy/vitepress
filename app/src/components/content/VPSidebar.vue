@@ -3,28 +3,13 @@ import { useScrollLock } from '@vueuse/core'
 import { ref, watch } from 'vue'
 import VPSidebarItem from './VPSidebarItem.vue'
 import {inBrowser} from "@/support/shared";
+import {useSidebar} from "@/stores/sidebar";
+import type {Sidebar} from "@/stores/sidebar";
 
-let sidebarGroups = [
-  {
-    text: 'Home',
-    items: [
-      {
-        text: 'Child',
-        link: '/child',
-      }
-    ],
-  },
-  {
-    text: 'About',
-    link: '/about',
-    items: [],
-  },
-  {
-    text: 'Contact',
-    link: '/contact',
-    items: [],
-  },
-]
+const isLoading = ref(true);
+const sidebarGroups = ref([] as Sidebar[]);
+
+useSidebar(isLoading, sidebarGroups)
 
 const props = defineProps<{
   open: boolean

@@ -14,8 +14,7 @@ export const Content = defineComponent({
         const content = ref('');
 
         const fetchData = (path : string) => {
-            isLoading.value = true;
-            axios.get("http://localhost:8080" + path).then((res) => {
+            axios.get("http://localhost:8080/content" + path).then((res) => {
                 content.value = res.data.data.content;
                 isLoading.value = false;
             });

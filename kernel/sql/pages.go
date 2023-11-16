@@ -1,6 +1,10 @@
 package sql
 
-import "time"
+import (
+	"encoding/json"
+	"gorm.io/datatypes"
+	"time"
+)
 
 type Page struct {
 	ID          int `gorm:"primaryKey"`
@@ -10,15 +14,39 @@ type Page struct {
 	Hash        string
 	Title       string
 	Description string
-	IsPublished bool
 	Content     string
 	Render      string
-	Toc         string
+	Toc         datatypes.JSON
 }
 
-func QueryContentByPath(path string) (content string, err error) {
+type Toc struct {
+	Title    string
+	Anchor   string
+	Children []*Toc
+}
+
+func QueryContentByPath(path string) (content string, toc []*Toc, err error) {
 	var page Page
 
-	err = db.Debug().Select("render").Where("path = ?", path).First(&page).Error
-	return page.Render, err
+	err = db.Select("render", "toc").Where("path = ?", path).First(&page).Error
+	if err != nil {
+		return "", nil, err
+	}
+
+	err = json.Unmarshal(page.Toc, &toc)
+	if err != nil {
+		return "", nil, err
+	}
+
+	return page.Render, toc, nil
+}
+
+func QueryPageMeta() (page []*Page, err error) {
+
+	err = db.Debug().Select("path", "title").Find(&page).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return page, err
 }

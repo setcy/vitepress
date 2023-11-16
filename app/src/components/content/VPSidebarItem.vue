@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import VPLink from './VPLink.vue'
 import {useSidebarControl} from "../../stores/sidebar";
+import type {Sidebar} from "../../stores/sidebar";
 import type {SidebarItem} from "@/support/sidebar";
 
 const props = defineProps<{

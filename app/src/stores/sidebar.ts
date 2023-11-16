@@ -11,6 +11,13 @@ import {
   type Ref
 } from 'vue'
 import type { SidebarItem } from '../support/sidebar'
+import axios from "axios";
+
+export interface Sidebar {
+  text?: string
+  link?: string
+  items?: Sidebar[]
+}
 
 export interface SidebarControl {
   collapsed: Ref<boolean>
@@ -22,8 +29,11 @@ export interface SidebarControl {
   toggle(): void
 }
 
-export function useSidebar() {
-
+export function useSidebar(Loading: Ref<boolean>, sidebarGroups: Ref<any>) {
+  axios.get("http://localhost:8080/meta").then((res) => {
+    sidebarGroups.value = res.data.data;
+    Loading.value = false;
+  });
 }
 
 export function useSidebarControl(
