@@ -2,26 +2,11 @@
 import { ref, shallowRef } from 'vue'
 import VPDocOutlineItem from './VPDocOutlineItem.vue'
 import type {MenuItem} from "@/support/aside";
+import type {Aside} from "@/stores/content";
 
-const headers = shallowRef<MenuItem[]>([
-  {
-    title: 'title',
-    link: '#link1',
-    children: [
-      {
-        title: 'title',
-        link: '#link2',
-        children: [
-          {
-            title: 'title',
-            link: '#link3',
-            children: [],
-          },
-        ],
-      },
-    ],
-  }
-])
+const props = defineProps<{
+  data: Aside[]
+}>()
 
 const container = ref()
 const marker = ref()
@@ -31,20 +16,20 @@ const marker = ref()
 <template>
   <div
     class="VPDocAsideOutline"
-    :class="{ 'has-outline': headers.length > 0 }"
+    :class="{ 'has-outline': data.length > 0 }"
     ref="container"
     role="navigation"
   >
     <div class="content">
       <div class="outline-marker" ref="marker" />
 
-      <div class="outline-title" role="heading" aria-level="2">title</div>
+      <div class="outline-title" role="heading" aria-level="2">On this page</div>
 
       <nav aria-labelledby="doc-outline-aria-label">
         <span class="visually-hidden" id="doc-outline-aria-label">
           Table of Contents for current page
         </span>
-        <VPDocOutlineItem :headers="headers" :root="true" />
+        <VPDocOutlineItem :headers="data" :root="true" />
       </nav>
     </div>
   </div>

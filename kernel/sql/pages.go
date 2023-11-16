@@ -20,9 +20,9 @@ type Page struct {
 }
 
 type Toc struct {
-	Title    string
-	Anchor   string
-	Children []*Toc
+	Title    string `json:"title"`
+	Anchor   string `json:"anchor"`
+	Children []*Toc `json:"children,omitempty"`
 }
 
 func QueryContentByPath(path string) (content string, toc []*Toc, err error) {
@@ -43,7 +43,7 @@ func QueryContentByPath(path string) (content string, toc []*Toc, err error) {
 
 func QueryPageMeta() (page []*Page, err error) {
 
-	err = db.Debug().Select("path", "title").Find(&page).Error
+	err = db.Debug().Select([]string{"path", "title"}).Find(&page).Error
 	if err != nil {
 		return nil, err
 	}

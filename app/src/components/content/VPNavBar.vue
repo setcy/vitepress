@@ -26,13 +26,26 @@ import VPNavBarTitle from './VPNavBarTitle.vue'
 </template>
 
 <style scoped>
+
 .VPNavBar {
   position: relative;
+  top: 0;
+  /*rtl:ignore*/
+  left: 0;
+  z-index: var(--vp-z-index-nav);
+  width: 100%;
+  pointer-events: none;
+  transition: background-color 0.5s;
   border-bottom: 1px solid transparent;
   padding: 0 8px 0 24px;
   height: var(--vp-nav-height);
-  pointer-events: none;
   white-space: nowrap;
+}
+
+@media (min-width: 960px) {
+  .VPNavBar {
+    position: fixed;
+  }
 }
 
 @media (min-width: 768px) {

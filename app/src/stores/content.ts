@@ -1,35 +1,38 @@
-import {defineComponent, h, ref, watch} from 'vue';
+import type {Ref} from 'vue';
+import {defineComponent, h} from 'vue';
 import axios from "axios";
+
+export interface Aside {
+    title?: string
+    anchor?: string
+    items?: Aside[]
+}
+
+export function useContent(path: Ref<string>, Loading: Ref<boolean>, content: Ref<string>, aside: Ref<any>) {
+    axios.get("http://localhost:8080/content" + path.value).then((res) => {
+        content.value = res.data.data.content;
+        aside.value = res.data.data.toc;
+        Loading.value = false;
+    });
+}
 
 export const Content = defineComponent({
     name: 'VitePressContent',
     props: {
-        path: {
+        rawHtml: {
             type: String,
+            required: true
+        },
+        loading: {
+            type: Boolean,
             required: true
         }
     },
     setup(props) {
-        const isLoading = ref(true);
-        const content = ref('');
-
-        const fetchData = (path : string) => {
-            axios.get("http://localhost:8080/content" + path).then((res) => {
-                content.value = res.data.data.content;
-                isLoading.value = false;
-            });
-        };
-
-        fetchData(props.path);
-
-        watch(() => props.path, (newPath) => {
-            fetchData(newPath);
-        });
-
-        return () => isLoading.value
+        return () => props.loading
             ? h('div', { class: 'spinner' })  // Loading
             : h('div', {
-                innerHTML: content.value
+                innerHTML: props.rawHtml
             });
     }
 

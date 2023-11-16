@@ -1,7 +1,43 @@
 <script setup lang="ts">
 
-import { Content } from '@/stores/content';
+import type {Aside} from "@/stores/content";
+import {Content, useContent} from '@/stores/content';
 import VPDocAside from "@/components/content/VPDocAside.vue";
+import {computed, onMounted, onUnmounted, ref, watch} from "vue";
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const path = computed(() => route.path);
+
+const isLoading = ref(true);
+const rawHtml = ref("");
+const aside = ref([] as Aside[]);
+
+useContent(path, isLoading, rawHtml, aside);
+
+watch(path, () => {
+  useContent(path, isLoading, rawHtml, aside);
+});
+
+// hash change
+const scrollToHash = () => {
+  const hash = window.location.hash;
+  if (hash) {
+    const targetElement = document.querySelector(hash);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('hashchange', scrollToHash);
+  scrollToHash();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('hashchange', scrollToHash);
+});
 
 </script>
 
@@ -17,7 +53,7 @@ import VPDocAside from "@/components/content/VPDocAside.vue";
         <div class="aside-curtain" />
         <div class="aside-container">
           <div class="aside-content">
-            <VPDocAside>
+            <VPDocAside :data="aside">
               <template #aside-top><slot name="aside-top" /></template>
               <template #aside-bottom><slot name="aside-bottom" /></template>
               <template #aside-outline-before><slot name="aside-outline-before" /></template>
@@ -33,7 +69,7 @@ import VPDocAside from "@/components/content/VPDocAside.vue";
         <div class="content-container">
           <slot name="doc-before" />
             <main class="main">
-              <Content class="vp-doc" :path="$route.path" />
+              <Content class="vp-doc" :raw-html="rawHtml" :loading="isLoading" />
             </main>
           <slot name="doc-after" />
         </div>

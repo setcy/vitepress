@@ -1,24 +1,52 @@
 <script setup lang="ts">
-import type {MenuItem} from "@/support/aside";
+import type {Aside} from "@/stores/content";
 
 defineProps<{
-  headers: MenuItem[]
+  headers: Aside[]
   root?: boolean
 }>()
 
-function onClick({ target: el }: Event) {
-  const id = (el as HTMLAnchorElement).href!.split('#')[1]
-  const heading = document.getElementById(decodeURIComponent(id))
-  heading?.focus({ preventScroll: true })
+function onClick(event: Event) {
+  event.preventDefault(); // 阻止链接的默认跳转行为
+
+  const el = event.target as HTMLAnchorElement;
+  const id = el.href.split('#')[1];
+  const section = document.getElementById(decodeURIComponent(id));
+
+  if (section) {
+    const startPosition = window.scrollY;
+
+    const endPosition = section.offsetTop + 30;
+
+    const distance = endPosition - startPosition;
+    const duration = 500; // Scroll duration in milliseconds
+    let start: number;
+
+    function step(timestamp: number) {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const pace = easeInOutCubic(progress / duration); // 缓动函数，用于调整滚动速度
+      window.scrollTo(0, startPosition + distance * pace);
+
+      if (progress < duration) window.requestAnimationFrame(step);
+    }
+
+    window.requestAnimationFrame(step);
+  }
 }
+
+function easeInOutCubic(t: number) {
+  return t < 0.4 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
 </script>
 
 <template>
   <ul :class="root ? 'root' : 'nested'">
-    <li v-for="{ children, link, title } in headers">
-      <a class="outline-link" :href="link" @click="onClick" :title="title">{{ title }}</a>
-      <template v-if="children?.length">
-        <VPDocOutlineItem :headers="children" />
+    <li v-for="{ items, anchor, title } in headers">
+      <a class="outline-link" :href="anchor" @click="onClick" :title="title">{{title}}</a>
+      <template v-if="items?.length">
+        <VPDocOutlineItem :headers="items" />
       </template>
     </li>
   </ul>
