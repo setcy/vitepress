@@ -7,7 +7,7 @@ import {inBrowser} from "@/support/shared";
 let sidebarGroups = [
   {
     text: 'Home',
-    children: [
+    items: [
       {
         text: 'Child',
         link: '/child',
@@ -17,12 +17,12 @@ let sidebarGroups = [
   {
     text: 'About',
     link: '/about',
-    children: [],
+    items: [],
   },
   {
     text: 'Contact',
     link: '/contact',
-    children: [],
+    items: [],
   },
 ]
 
