@@ -1,16 +1,37 @@
-import { defineComponent, h } from 'vue';
+import {defineComponent, h, ref, watch} from 'vue';
+import axios from "axios";
 
 export const Content = defineComponent({
     name: 'VitePressContent',
     props: {
-        htmlContent: {
+        path: {
             type: String,
             required: true
         }
     },
-    render() {
-        return h('div', {
-            innerHTML: this.htmlContent
+    setup(props) {
+        const isLoading = ref(true);
+        const content = ref('');
+
+        const fetchData = (path : string) => {
+            isLoading.value = true;
+            axios.get("http://localhost:8080" + path).then((res) => {
+                content.value = res.data.data.content;
+                isLoading.value = false;
+            });
+        };
+
+        fetchData(props.path);
+
+        watch(() => props.path, (newPath) => {
+            fetchData(newPath);
         });
+
+        return () => isLoading.value
+            ? h('div', { class: 'spinner' })  // Loading
+            : h('div', {
+                innerHTML: content.value
+            });
     }
+
 });

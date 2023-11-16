@@ -31,20 +31,6 @@ const props = defineProps<{
   hasSidebar: boolean
 }>()
 
-// a11y: focus Nav element when menu has opened
-const navEl = ref<HTMLElement | null>(null)
-const isLocked = useScrollLock(inBrowser ? document.body : null)
-
-watch(
-    [props, navEl],
-    () => {
-      if (props.open) {
-        isLocked.value = true
-        navEl.value?.focus()
-      } else isLocked.value = false
-    },
-    { immediate: true, flush: 'post' }
-)
 </script>
 
 <template>
