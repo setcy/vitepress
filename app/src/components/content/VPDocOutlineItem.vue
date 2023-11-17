@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {Aside} from "@/stores/content";
+import {easeInOutCubic} from "@/support/shared";
 
 defineProps<{
   headers: Aside[]
@@ -16,7 +17,7 @@ function onClick(event: Event) {
   if (section) {
     const startPosition = window.scrollY;
 
-    const endPosition = section.offsetTop + 30;
+    const endPosition = section.offsetTop;
 
     const distance = endPosition - startPosition;
     const duration = 500; // Scroll duration in milliseconds
@@ -33,10 +34,6 @@ function onClick(event: Event) {
 
     window.requestAnimationFrame(step);
   }
-}
-
-function easeInOutCubic(t: number) {
-  return t < 0.4 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
 </script>

@@ -19,26 +19,6 @@ watch(path, () => {
   useContent(path, isLoading, rawHtml, aside);
 });
 
-// hash change
-const scrollToHash = () => {
-  const hash = window.location.hash;
-  if (hash) {
-    const targetElement = document.querySelector(hash);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-};
-
-onMounted(() => {
-  window.addEventListener('hashchange', scrollToHash);
-  scrollToHash();
-});
-
-onUnmounted(() => {
-  window.removeEventListener('hashchange', scrollToHash);
-});
-
 </script>
 
 <template>
