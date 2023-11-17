@@ -7,7 +7,7 @@ defineProps<{
 }>()
 
 function onClick(event: Event) {
-  event.preventDefault(); // 阻止链接的默认跳转行为
+  event.preventDefault();
 
   const el = event.target as HTMLAnchorElement;
   const id = el.href.split('#')[1];
@@ -25,7 +25,7 @@ function onClick(event: Event) {
     function step(timestamp: number) {
       if (!start) start = timestamp;
       const progress = timestamp - start;
-      const pace = easeInOutCubic(progress / duration); // 缓动函数，用于调整滚动速度
+      const pace = easeInOutCubic(progress / duration);
       window.scrollTo(0, startPosition + distance * pace);
 
       if (progress < duration) window.requestAnimationFrame(step);
@@ -43,10 +43,10 @@ function easeInOutCubic(t: number) {
 
 <template>
   <ul :class="root ? 'root' : 'nested'">
-    <li v-for="{ items, anchor, title } in headers">
+    <li v-for="{ children, anchor, title } in headers">
       <a class="outline-link" :href="anchor" @click="onClick" :title="title">{{title}}</a>
-      <template v-if="items?.length">
-        <VPDocOutlineItem :headers="items" />
+      <template v-if="children?.length">
+        <VPDocOutlineItem :headers="children" />
       </template>
     </li>
   </ul>

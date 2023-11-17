@@ -4,10 +4,11 @@ import VPLink from './VPLink.vue'
 import {useSidebarControl} from "../../stores/sidebar";
 import type {Sidebar} from "../../stores/sidebar";
 import type {SidebarItem} from "@/support/sidebar";
+import VPIconChevronRight from "@/components/icon/VPIconChevronRight.vue";
 
 const props = defineProps<{
   depth: number
-  item: SidebarItem
+  item: Sidebar
 }>()
 
 const {
@@ -56,11 +57,10 @@ function onCaretClick() {
 </script>
 
 <template>
-  <component :is="sectionTag" class="VPSidebarItem" :class="classes">
+  <component class="VPSidebarItem" :class="classes">
     <div
       v-if="item.text"
       class="item"
-      :role="itemRole"
       v-on="
         item.items
           ? { click: onItemInteraction, keydown: onItemInteraction }
@@ -75,13 +75,22 @@ function onCaretClick() {
           :tag="linkTag"
           class="link"
           :href="item.link"
-          :rel="item.rel"
-          :target="item.target"
       >
         <component :is="textTag" class="text" v-html="item.text" />
       </VPLink>
       <component v-else :is="textTag" class="text" v-html="item.text" />
 
+      <div
+          v-if="depth === 0"
+          class="caret"
+          role="button"
+          aria-label="toggle section"
+          @click="onCaretClick"
+          @keydown.enter="onCaretClick"
+          tabindex="0"
+      >
+        <VPIconChevronRight class="caret-icon" />
+      </div>
     </div>
 
     <div v-if="item.items && item.items.length" class="items">

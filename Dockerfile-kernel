@@ -1,0 +1,19 @@
+FROM golang:alpine AS backend
+
+COPY ./kernel /kernel
+
+WORKDIR /kernel
+
+RUN go build \
+    -o /bin/wiki-kernel \
+    *.go
+
+FROM alpine:latest
+
+COPY --from=backend /bin/wiki-kernel /app/wiki-kernel
+
+WORKDIR /app
+
+CMD ["/app/wiki-kernel"]
+
+EXPOSE 8080

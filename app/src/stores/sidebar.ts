@@ -29,21 +29,21 @@ export interface SidebarControl {
   toggle(): void
 }
 
-export function useSidebar(Loading: Ref<boolean>, sidebarGroups: Ref<any>) {
-  axios.get("http://localhost:8080/meta").then((res) => {
+export function useSidebar(Loading: Ref<boolean>, sidebarGroups: Ref<Sidebar[]>) {
+  axios.get("/_meta").then((res) => {
     sidebarGroups.value = res.data.data;
     Loading.value = false;
   });
 }
 
 export function useSidebarControl(
-    item: ComputedRef<SidebarItem>
+    item: ComputedRef<Sidebar>
 ): SidebarControl {
 
   const collapsed = ref(false)
 
   const collapsible = computed(() => {
-    return item.value.collapsed != null
+    return true
   })
 
   const isLink = computed(() => {
@@ -63,10 +63,6 @@ export function useSidebarControl(
 
   const hasChildren = computed(() => {
     return !!(item.value.items && item.value.items.length)
-  })
-
-  watchEffect(() => {
-    collapsed.value = !!(collapsible.value && item.value.collapsed)
   })
 
   watchPostEffect(() => {

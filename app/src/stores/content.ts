@@ -5,11 +5,11 @@ import axios from "axios";
 export interface Aside {
     title?: string
     anchor?: string
-    items?: Aside[]
+    children?: Aside[]
 }
 
 export function useContent(path: Ref<string>, Loading: Ref<boolean>, content: Ref<string>, aside: Ref<any>) {
-    axios.get("http://localhost:8080/content" + path.value).then((res) => {
+    axios.get("/_content" + path.value).then((res) => {
         content.value = res.data.data.content;
         aside.value = res.data.data.toc;
         Loading.value = false;

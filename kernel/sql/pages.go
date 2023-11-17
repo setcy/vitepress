@@ -28,7 +28,7 @@ type Toc struct {
 func QueryContentByPath(path string) (content string, toc []*Toc, err error) {
 	var page Page
 
-	err = db.Select("render", "toc").Where("path = ?", path).First(&page).Error
+	err = db.Select("render", "toc").Where("path = ?", path).Take(&page).Error
 	if err != nil {
 		return "", nil, err
 	}

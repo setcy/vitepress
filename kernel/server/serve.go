@@ -1,17 +1,22 @@
 package server
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
 
 	"github.com/setcy/wiki/kernel/api"
 )
 
+var Mode string
+
 func Serve() {
 	ginServer := gin.New()
 
-	ginServer.Use(cors())
+	if Mode == "allInOne" {
+		serveStatic(ginServer)
+	} else {
+		ginServer.Use(cors())
+	}
 
 	api.ServeAPI(ginServer)
 
@@ -37,4 +42,15 @@ func cors() gin.HandlerFunc {
 		}
 		c.Next()
 	}
+}
+
+func serveStatic(ginServer *gin.Engine) {
+	// 正常处理静态文件
+	ginServer.Static("/assets", "./static/assets")
+	ginServer.StaticFile("/favicon.ico", "./static/favicon.ico")
+
+	// 处理前端 history 模式
+	ginServer.NoRoute(func(c *gin.Context) {
+		c.File("./static/index.html")
+	})
 }

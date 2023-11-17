@@ -90,7 +90,7 @@ func getMeta(c *gin.Context) {
 	return
 }
 
-const contentPathPrefixLen = 9 // len("/content/")
+const contentPathPrefixLen = 10 // len("/_content/")
 
 func getContent(c *gin.Context) {
 	ret := util.NewResult()
