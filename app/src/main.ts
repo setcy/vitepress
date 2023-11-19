@@ -8,8 +8,8 @@ import './assets/components/vp-code-group.css'
 import './assets/components/vp-doc.css'
 import './assets/components/vp-sponsor.css'
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import {createApp} from 'vue'
+import {createPinia} from 'pinia'
 
 import App from './App.vue'
 import router from './router'

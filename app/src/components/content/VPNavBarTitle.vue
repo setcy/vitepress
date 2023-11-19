@@ -1,13 +1,13 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 </script>
 
 <template>
   <div class="VPNavBarTitle">
     <a class="title">
-      <slot name="nav-bar-title-before" />
-        HDU-WIKI
-      <slot name="nav-bar-title-after" />
+      <slot name="nav-bar-title-before"/>
+      HDU-WIKI
+      <slot name="nav-bar-title-after"/>
     </a>
   </div>
 </template>

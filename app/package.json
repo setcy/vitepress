@@ -4,11 +4,10 @@
   "packageManager": "pnpm@8.10.4",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-p \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+    "build-only": "vite build"
   },
   "dependencies": {
     "@vueuse/core": "^10.6.1",

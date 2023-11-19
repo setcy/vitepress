@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type {Aside} from "@/stores/content";
 import {easeInOutCubic} from "@/support/shared";
 
@@ -41,9 +41,9 @@ function onClick(event: Event) {
 <template>
   <ul :class="root ? 'root' : 'nested'">
     <li v-for="{ children, anchor, title } in headers">
-      <a class="outline-link" :href="anchor" @click="onClick" :title="title">{{title}}</a>
+      <a :href="anchor" :title="title" class="outline-link" @click="onClick">{{ title }}</a>
       <template v-if="children?.length">
-        <VPDocOutlineItem :headers="children" />
+        <VPDocOutlineItem :headers="children"/>
       </template>
     </li>
   </ul>

@@ -1,13 +1,12 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import VPSidebar from "@/components/content/VPSidebar.vue";
 import VPNavBar from "@/components/content/VPNavBar.vue";
-
 </script>
 <template>
   <VPNavBar></VPNavBar>
-  <VPSidebar open has-sidebar></VPSidebar>
-  <RouterView />
+  <VPSidebar has-sidebar open></VPSidebar>
+  <RouterView/>
 </template>
 
 <style>

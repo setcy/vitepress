@@ -1,10 +1,10 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import type {Aside} from "@/stores/content";
 import {Content, useContent} from '@/stores/content';
 import VPDocAside from "@/components/content/VPDocAside.vue";
-import {computed, onMounted, onUnmounted, ref, watch} from "vue";
-import { useRoute } from 'vue-router';
+import {computed, ref, watch} from "vue";
+import {useRoute} from 'vue-router';
 
 const route = useRoute();
 const path = computed(() => route.path);
@@ -23,23 +23,35 @@ watch(path, () => {
 
 <template>
   <div
-    class="VPDoc"
-    :class="{ 'has-sidebar': true, 'has-aside': true }"
+      :class="{ 'has-sidebar': true, 'has-aside': true }"
+      class="VPDoc"
   >
-    <slot name="doc-top" />
+    <slot name="doc-top"/>
     <div class="container">
 
       <div class="aside">
-        <div class="aside-curtain" />
+        <div class="aside-curtain"/>
         <div class="aside-container">
           <div class="aside-content">
             <VPDocAside :data="aside">
-              <template #aside-top><slot name="aside-top" /></template>
-              <template #aside-bottom><slot name="aside-bottom" /></template>
-              <template #aside-outline-before><slot name="aside-outline-before" /></template>
-              <template #aside-outline-after><slot name="aside-outline-after" /></template>
-              <template #aside-ads-before><slot name="aside-ads-before" /></template>
-              <template #aside-ads-after><slot name="aside-ads-after" /></template>
+              <template #aside-top>
+                <slot name="aside-top"/>
+              </template>
+              <template #aside-bottom>
+                <slot name="aside-bottom"/>
+              </template>
+              <template #aside-outline-before>
+                <slot name="aside-outline-before"/>
+              </template>
+              <template #aside-outline-after>
+                <slot name="aside-outline-after"/>
+              </template>
+              <template #aside-ads-before>
+                <slot name="aside-ads-before"/>
+              </template>
+              <template #aside-ads-after>
+                <slot name="aside-ads-after"/>
+              </template>
             </VPDocAside>
           </div>
         </div>
@@ -47,15 +59,15 @@ watch(path, () => {
 
       <div class="content">
         <div class="content-container">
-          <slot name="doc-before" />
-            <main class="main">
-              <Content class="vp-doc" :raw-html="rawHtml" :loading="isLoading" />
-            </main>
-          <slot name="doc-after" />
+          <slot name="doc-before"/>
+          <main class="main">
+            <Content :loading="isLoading" :raw-html="rawHtml" class="vp-doc"/>
+          </main>
+          <slot name="doc-after"/>
         </div>
       </div>
     </div>
-    <slot name="doc-bottom" />
+    <slot name="doc-bottom"/>
   </div>
 </template>
 

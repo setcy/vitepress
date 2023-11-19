@@ -1,9 +1,8 @@
-<script setup lang="ts">
-import { computed } from 'vue'
+<script lang="ts" setup>
+import {computed} from 'vue'
 import VPLink from './VPLink.vue'
-import {useSidebarControl} from "../../stores/sidebar";
-import type {Sidebar} from "../../stores/sidebar";
-import type {SidebarItem} from "@/support/sidebar";
+import type {Sidebar} from "@/stores/sidebar";
+import {useSidebarControl} from "@/stores/sidebar";
 import VPIconChevronRight from "@/components/icon/VPIconChevronRight.vue";
 
 const props = defineProps<{
@@ -27,21 +26,21 @@ const linkTag = computed(() => (isLink.value ? 'a' : 'div'))
 
 const textTag = computed(() => {
   return !hasChildren.value
-    ? 'p'
-    : props.depth + 2 === 7
-    ? 'p'
-    : `h${props.depth + 2}`
+      ? 'p'
+      : props.depth + 2 === 7
+          ? 'p'
+          : `h${props.depth + 2}`
 })
 
 const itemRole = computed(() => (isLink.value ? undefined : 'button'))
 
 const classes = computed(() => [
   [`level-${props.depth}`],
-  { collapsible: collapsible.value },
-  { collapsed: collapsed.value },
-  { 'is-link': isLink.value },
-  { 'is-active': isActiveLink.value },
-  { 'has-active': hasActiveLink.value }
+  {collapsible: collapsible.value},
+  {collapsed: collapsed.value},
+  {'is-link': isLink.value},
+  {'is-active': isActiveLink.value},
+  {'has-active': hasActiveLink.value}
 ])
 
 function onItemInteraction(e: MouseEvent | Event) {
@@ -57,49 +56,49 @@ function onCaretClick() {
 </script>
 
 <template>
-  <component class="VPSidebarItem" :class="classes">
+  <component :class="classes" class="VPSidebarItem">
     <div
-      v-if="item.text"
-      class="item"
-      v-on="
+        v-if="item.text"
+        :tabindex="item.items && 0"
+        class="item"
+        v-on="
         item.items
           ? { click: onItemInteraction, keydown: onItemInteraction }
           : {}
       "
-      :tabindex="item.items && 0"
     >
-      <div class="indicator" />
+      <div class="indicator"/>
 
       <VPLink
           v-if="item.link"
+          :href="item.link"
           :tag="linkTag"
           class="link"
-          :href="item.link"
       >
-        <component :is="textTag" class="text" v-html="item.text" />
+        <component :is="textTag" class="text" v-html="item.text"/>
       </VPLink>
-      <component v-else :is="textTag" class="text" v-html="item.text" />
+      <component :is="textTag" v-else class="text" v-html="item.text"/>
 
       <div
-          v-if="depth === 0"
+          v-if="depth === 0 && item.items && item.items.length"
+          aria-label="toggle section"
           class="caret"
           role="button"
-          aria-label="toggle section"
+          tabindex="0"
           @click="onCaretClick"
           @keydown.enter="onCaretClick"
-          tabindex="0"
       >
-        <VPIconChevronRight class="caret-icon" />
+        <VPIconChevronRight class="caret-icon"/>
       </div>
     </div>
 
     <div v-if="item.items && item.items.length" class="items">
       <template v-if="depth < 5">
         <VPSidebarItem
-          v-for="i in item.items"
-          :key="i.text"
-          :item="i"
-          :depth="depth + 1"
+            v-for="i in item.items"
+            :key="i.text"
+            :depth="depth + 1"
+            :item="i"
         />
       </template>
     </div>

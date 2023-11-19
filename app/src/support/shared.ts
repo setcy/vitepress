@@ -4,6 +4,8 @@ export const EXT_RE = /(index)?\.(md|html)$/
 
 export const inBrowser = typeof document !== 'undefined'
 
+export const apiUrl = import.meta.env.VITE_API_URL
+
 
 export interface Header {
     /**

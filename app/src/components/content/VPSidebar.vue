@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import { useScrollLock } from '@vueuse/core'
-import { ref, watch } from 'vue'
+import {ref} from 'vue'
 import VPSidebarItem from './VPSidebarItem.vue'
-import {inBrowser} from "@/support/shared";
-import {useSidebar} from "@/stores/sidebar";
 import type {Sidebar} from "@/stores/sidebar";
+import {useSidebar} from "@/stores/sidebar";
 
 const isLoading = ref(true);
 const sidebarGroups = ref([] as Sidebar[]);
@@ -21,25 +19,25 @@ const props = defineProps<{
 <template>
   <aside
       v-if="hasSidebar"
-      class="VPSidebar"
-      :class="{ open }"
       ref="navEl"
+      :class="{ open }"
+      class="VPSidebar"
       @click.stop
   >
-    <div class="curtain" />
+    <div class="curtain"/>
 
-    <nav class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
-      <span class="visually-hidden" id="sidebar-aria-label">
+    <nav id="VPSidebarNav" aria-labelledby="sidebar-aria-label" class="nav" tabindex="-1">
+      <span id="sidebar-aria-label" class="visually-hidden">
         Sidebar Navigation
       </span>
 
-      <slot name="sidebar-nav-before" />
+      <slot name="sidebar-nav-before"/>
 
       <div v-for="item in sidebarGroups" :key="item.text" class="group">
-        <VPSidebarItem :item="item" :depth="0" />
+        <VPSidebarItem :depth="0" :item="item"/>
       </div>
 
-      <slot name="sidebar-nav-after" />
+      <slot name="sidebar-nav-after"/>
     </nav>
   </aside>
 </template>

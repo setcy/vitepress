@@ -1,32 +1,53 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import VPDoc from './VPDoc.vue';
-
 </script>
 
 <template>
   <div
-      class="VPContent"
       id="VPContent"
       :class="{
          'has-sidebar': true,
       }"
+      class="VPContent"
   >
 
     <VPDoc>
-      <template #doc-top><slot name="doc-top" /></template>
-      <template #doc-bottom><slot name="doc-bottom" /></template>
+      <template #doc-top>
+        <slot name="doc-top"/>
+      </template>
+      <template #doc-bottom>
+        <slot name="doc-bottom"/>
+      </template>
 
-      <template #doc-footer-before><slot name="doc-footer-before" /></template>
-      <template #doc-before><slot name="doc-before" /></template>
-      <template #doc-after><slot name="doc-after" /></template>
+      <template #doc-footer-before>
+        <slot name="doc-footer-before"/>
+      </template>
+      <template #doc-before>
+        <slot name="doc-before"/>
+      </template>
+      <template #doc-after>
+        <slot name="doc-after"/>
+      </template>
 
-      <template #aside-top><slot name="aside-top" /></template>
-      <template #aside-outline-before><slot name="aside-outline-before" /></template>
-      <template #aside-outline-after><slot name="aside-outline-after" /></template>
-      <template #aside-ads-before><slot name="aside-ads-before" /></template>
-      <template #aside-ads-after><slot name="aside-ads-after" /></template>
-      <template #aside-bottom><slot name="aside-bottom" /></template>
+      <template #aside-top>
+        <slot name="aside-top"/>
+      </template>
+      <template #aside-outline-before>
+        <slot name="aside-outline-before"/>
+      </template>
+      <template #aside-outline-after>
+        <slot name="aside-outline-after"/>
+      </template>
+      <template #aside-ads-before>
+        <slot name="aside-ads-before"/>
+      </template>
+      <template #aside-ads-after>
+        <slot name="aside-ads-after"/>
+      </template>
+      <template #aside-bottom>
+        <slot name="aside-bottom"/>
+      </template>
     </VPDoc>
   </div>
 </template>

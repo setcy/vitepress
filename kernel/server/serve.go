@@ -20,7 +20,7 @@ func Serve() {
 
 	api.ServeAPI(ginServer)
 
-	err := ginServer.Run(":8080")
+	err := ginServer.Run(":3026")
 	if err != nil {
 		panic(err)
 	}

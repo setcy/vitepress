@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import VPDocAsideOutline from './VPDocAsideOutline.vue'
 import type {Aside} from "@/stores/content";
 
@@ -10,15 +10,15 @@ const props = defineProps<{
 
 <template>
   <div class="VPDocAside">
-    <slot name="aside-top" />
+    <slot name="aside-top"/>
 
-    <slot name="aside-outline-before" />
-      <VPDocAsideOutline :data="data" />
-    <slot name="aside-outline-after" />
+    <slot name="aside-outline-before"/>
+    <VPDocAsideOutline :data="data"/>
+    <slot name="aside-outline-after"/>
 
-    <div class="spacer" />
+    <div class="spacer"/>
 
-    <slot name="aside-bottom" />
+    <slot name="aside-bottom"/>
   </div>
 </template>
 

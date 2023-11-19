@@ -1,7 +1,6 @@
-<script setup lang="ts">
-import { ref, shallowRef } from 'vue'
+<script lang="ts" setup>
+import {ref} from 'vue'
 import VPDocOutlineItem from './VPDocOutlineItem.vue'
-import type {MenuItem} from "@/support/aside";
 import type {Aside} from "@/stores/content";
 
 const props = defineProps<{
@@ -15,21 +14,21 @@ const marker = ref()
 
 <template>
   <div
-    class="VPDocAsideOutline"
-    :class="{ 'has-outline': data.length > 0 }"
-    ref="container"
-    role="navigation"
+      ref="container"
+      :class="{ 'has-outline': data.length > 0 }"
+      class="VPDocAsideOutline"
+      role="navigation"
   >
     <div class="content">
-      <div class="outline-marker" ref="marker" />
+      <div ref="marker" class="outline-marker"/>
 
-      <div class="outline-title" role="heading" aria-level="2">On this page</div>
+      <div aria-level="2" class="outline-title" role="heading">On this page</div>
 
       <nav aria-labelledby="doc-outline-aria-label">
-        <span class="visually-hidden" id="doc-outline-aria-label">
+        <span id="doc-outline-aria-label" class="visually-hidden">
           Table of Contents for current page
         </span>
-        <VPDocOutlineItem :headers="data" :root="true" />
+        <VPDocOutlineItem :headers="data" :root="true"/>
       </nav>
     </div>
   </div>
@@ -62,10 +61,9 @@ const marker = ref()
   border-radius: 2px;
   height: 18px;
   background-color: var(--vp-c-brand-1);
-  transition:
-    top 0.25s cubic-bezier(0, 1, 0.5, 1),
-    background-color 0.5s,
-    opacity 0.25s;
+  transition: top 0.25s cubic-bezier(0, 1, 0.5, 1),
+  background-color 0.5s,
+  opacity 0.25s;
 }
 
 .outline-title {

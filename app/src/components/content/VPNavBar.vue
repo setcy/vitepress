@@ -5,20 +5,24 @@ import VPNavBarTitle from './VPNavBarTitle.vue'
 </script>
 
 <template>
-  <div class="VPNavBar" :class="{'has-sidebar': true}">
+  <div :class="{'has-sidebar': true}" class="VPNavBar">
     <div class="container">
       <div class="title">
         <VPNavBarTitle>
-          <template #nav-bar-title-before><slot name="nav-bar-title-before" /></template>
-          <template #nav-bar-title-after><slot name="nav-bar-title-after" /></template>
+          <template #nav-bar-title-before>
+            <slot name="nav-bar-title-before"/>
+          </template>
+          <template #nav-bar-title-after>
+            <slot name="nav-bar-title-after"/>
+          </template>
         </VPNavBarTitle>
       </div>
 
       <div class="content">
-        <div class="curtain" />
+        <div class="curtain"/>
         <div class="content-body">
-          <slot name="nav-bar-content-before" />
-          <slot name="nav-bar-content-after" />
+          <slot name="nav-bar-content-before"/>
+          <slot name="nav-bar-content-after"/>
         </div>
       </div>
     </div>
@@ -144,7 +148,7 @@ import VPNavBarTitle from './VPNavBarTitle.vue'
 }
 
 @media (min-width: 960px) {
-  .VPNavBar:not(.top) .content-body{
+  .VPNavBar:not(.top) .content-body {
     position: relative;
     background-color: var(--vp-nav-bg-color);
   }
