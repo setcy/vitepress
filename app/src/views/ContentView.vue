@@ -6,9 +6,11 @@ import {useSidebarControl} from "@/stores/sidebar";
 import {watch} from "vue";
 import {useRoute} from "vue-router";
 import VPBackdrop from "@/components/content/VPBackdrop.vue";
+import VPLocalNav from "@/components/content/VPLocalNav.vue";
 
 const {
   isOpen: isSidebarOpen,
+  isSidebarEnabled: isSidebarEnabled,
   open: openSidebar,
   close: closeSidebar
 } = useSidebarControl()
@@ -20,7 +22,8 @@ watch(() => route.path, closeSidebar)
 <template>
   <VPBackdrop :show="isSidebarOpen" class="backdrop" @click="closeSidebar"/>
   <VPNavBar :open="isSidebarOpen" @open-menu="openSidebar"></VPNavBar>
-  <VPSidebar :open="isSidebarOpen" has-sidebar></VPSidebar>
+  <VPLocalNav :open="isSidebarOpen" @open-menu="openSidebar"/>
+  <VPSidebar :has-sidebar="isSidebarEnabled" :open="isSidebarOpen"></VPSidebar>
   <RouterView/>
 </template>
 

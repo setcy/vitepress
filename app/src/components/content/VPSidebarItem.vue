@@ -55,53 +55,51 @@ function onCaretClick() {
 </script>
 
 <template>
-  <component :class="classes" class="VPSidebarItem">
-    <div
-        v-if="item.text"
-        :tabindex="item.items && 0"
-        class="item"
-        v-on="
+  <div
+      v-if="item.text"
+      :tabindex="item.items && 0"
+      class="item"
+      v-on="
         item.items
           ? { click: onItemInteraction, keydown: onItemInteraction }
           : {}
       "
+  >
+    <div class="indicator"/>
+
+    <VPLink
+        v-if="item.link"
+        :href="item.link"
+        :tag="linkTag"
+        class="link"
     >
-      <div class="indicator"/>
+      <component :is="textTag" class="text" v-html="item.text"/>
+    </VPLink>
+    <component :is="textTag" v-else class="text" v-html="item.text"/>
 
-      <VPLink
-          v-if="item.link"
-          :href="item.link"
-          :tag="linkTag"
-          class="link"
-      >
-        <component :is="textTag" class="text" v-html="item.text"/>
-      </VPLink>
-      <component :is="textTag" v-else class="text" v-html="item.text"/>
-
-      <div
-          v-if="depth === 0 && item.items && item.items.length"
-          aria-label="toggle section"
-          class="caret"
-          role="button"
-          tabindex="0"
-          @click="onCaretClick"
-          @keydown.enter="onCaretClick"
-      >
-        <VPIconChevronRight class="caret-icon"/>
-      </div>
+    <div
+        v-if="depth === 0 && item.items && item.items.length"
+        aria-label="toggle section"
+        class="caret"
+        role="button"
+        tabindex="0"
+        @click="onCaretClick"
+        @keydown.enter="onCaretClick"
+    >
+      <VPIconChevronRight class="caret-icon"/>
     </div>
+  </div>
 
-    <div v-if="item.items && item.items.length" class="items">
-      <template v-if="depth < 5">
-        <VPSidebarItem
-            v-for="i in item.items"
-            :key="i.text"
-            :depth="depth + 1"
-            :item="i"
-        />
-      </template>
-    </div>
-  </component>
+  <div v-if="item.items && item.items.length" class="items">
+    <template v-if="depth < 5">
+      <VPSidebarItem
+          v-for="i in item.items"
+          :key="i.text"
+          :depth="depth + 1"
+          :item="i"
+      />
+    </template>
+  </div>
 </template>
 
 <style scoped>

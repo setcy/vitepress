@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 
 import VPNavBarTitle from './VPNavBarTitle.vue'
-
 </script>
 
 <template>

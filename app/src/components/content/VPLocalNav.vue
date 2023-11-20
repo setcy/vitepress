@@ -3,6 +3,8 @@ import {useWindowScroll} from '@vueuse/core'
 import {computed, onMounted, ref} from 'vue'
 import {useSidebarControl} from "@/stores/sidebar";
 import VPIconAlignLeft from "@/components/icon/VPIconAlignLeft.vue";
+import VPLocalNavOutlineDropdown from "@/components/content/VPLocalNavOutlineDropdown.vue";
+import type {Aside} from "@/stores/content";
 
 defineProps<{
   open: boolean
@@ -11,6 +13,8 @@ defineProps<{
 defineEmits<{
   (e: 'open-menu'): void
 }>()
+
+const headers = ref([] as Aside[]);
 
 const {isSidebarEnabled} = useSidebarControl()
 // @ts-ignore
@@ -45,7 +49,7 @@ const classes = computed(() => {
       :class="classes"
   >
     <button
-        v-if="isSidebarEnabled"
+        v-if="!isSidebarEnabled"
         :aria-expanded="open"
         aria-controls="VPSidebarNav"
         class="menu"
@@ -56,6 +60,8 @@ const classes = computed(() => {
         {{ 'Menu' }}
       </span>
     </button>
+
+    <VPLocalNavOutlineDropdown :headers="headers" :navHeight="navHeight"/>
   </div>
 </template>
 
