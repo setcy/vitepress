@@ -1,5 +1,5 @@
-<script lang="ts" setup>
-import {nextTick, ref} from 'vue'
+<script setup lang="ts">
+import { nextTick, ref } from 'vue'
 import VPIconChevronRight from "@/components/icon/VPIconChevronRight.vue";
 import VPDocOutlineItem from "@/components/content/VPDocOutlineItem.vue";
 import type {Aside} from "@/stores/content";
@@ -32,24 +32,24 @@ function onItemClick(e: Event) {
 
 function scrollToTop() {
   open.value = false
-  window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 }
 </script>
 
 <template>
-  <div :style="{ '--vp-vh': vh + 'px' }" class="VPLocalNavOutlineDropdown">
-    <button v-if="headers.length > 0" :class="{ open }" @click="toggle">
+  <div class="VPLocalNavOutlineDropdown" :style="{ '--vp-vh': vh + 'px' }">
+    <button @click="toggle" :class="{ open }" v-if="headers.length > 0">
       {{ 'On this page' }}
-      <VPIconChevronRight class="icon"/>
+      <VPIconChevronRight class="icon" />
     </button>
-    <button v-else @click="scrollToTop">
+    <button @click="scrollToTop" v-else>
       {{ 'Return to top' }}
     </button>
     <Transition name="flyout">
       <div v-if="open"
-           ref="items"
-           class="items"
-           @click="onItemClick"
+        ref="items"
+        class="items"
+        @click="onItemClick"
       >
         <div class="header">
           <a class="top-link" href="#" @click="scrollToTop">
@@ -57,7 +57,7 @@ function scrollToTop() {
           </a>
         </div>
         <div class="outline">
-          <VPDocOutlineItem :headers="headers"/>
+          <VPDocOutlineItem :headers="headers" />
         </div>
       </div>
     </Transition>

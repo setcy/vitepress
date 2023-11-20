@@ -61,7 +61,7 @@ const classes = computed(() => {
       </span>
     </button>
 
-    <VPLocalNavOutlineDropdown :headers="headers" :navHeight="navHeight"/>
+    <VPLocalNavOutlineDropdown :headers="headers" :navHeight="navHeight" />
   </div>
 </template>
 
