@@ -2,7 +2,7 @@
 import {computed} from 'vue'
 import VPLink from './VPLink.vue'
 import type {Sidebar} from "@/stores/sidebar";
-import {useSidebarControl} from "@/stores/sidebar";
+import {useSidebarItemControl} from "@/stores/sidebar";
 import VPIconChevronRight from "@/components/icon/VPIconChevronRight.vue";
 
 const props = defineProps<{
@@ -12,13 +12,12 @@ const props = defineProps<{
 
 const {
   collapsed,
-  collapsible,
   isLink,
   isActiveLink,
   hasActiveLink,
   hasChildren,
   toggle
-} = useSidebarControl(computed(() => props.item))
+} = useSidebarItemControl(computed(() => props.item))
 
 const sectionTag = computed(() => (hasChildren.value ? 'section' : `div`))
 
@@ -36,7 +35,7 @@ const itemRole = computed(() => (isLink.value ? undefined : 'button'))
 
 const classes = computed(() => [
   [`level-${props.depth}`],
-  {collapsible: collapsible.value},
+  {collapsible: props.item.items && props.item.items.length},
   {collapsed: collapsed.value},
   {'is-link': isLink.value},
   {'is-active': isActiveLink.value},

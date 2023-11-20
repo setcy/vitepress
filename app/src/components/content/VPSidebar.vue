@@ -2,23 +2,24 @@
 import {ref} from 'vue'
 import VPSidebarItem from './VPSidebarItem.vue'
 import type {Sidebar} from "@/stores/sidebar";
-import {useSidebar} from "@/stores/sidebar";
+import {useSidebar, useSidebarControl} from "@/stores/sidebar";
 
 const isLoading = ref(true);
 const sidebarGroups = ref([] as Sidebar[]);
 
 useSidebar(isLoading, sidebarGroups)
 
+const isSidebarEnabled = useSidebarControl()
+
 const props = defineProps<{
   open: boolean
-  hasSidebar: boolean
 }>()
 
 </script>
 
 <template>
   <aside
-      v-if="hasSidebar"
+      v-if="isSidebarEnabled"
       ref="navEl"
       :class="{ open }"
       class="VPSidebar"
